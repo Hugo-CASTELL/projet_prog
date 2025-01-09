@@ -14,7 +14,7 @@ begin
   Init (Tree, 'f');
 
   -- Testing initialisation
-  pragma Assert(GetData(Tree) = 'p');
+  pragma Assert(GetData(Tree) = 'f');
 
   -- Testing if branches are empty
   pragma Assert(IsBranchEmpty(Tree, True) = True);
@@ -39,7 +39,6 @@ begin
   -- Testing leaf detection
   pragma Assert(IsLeaf(GetLeft(Tree)) = True);
   pragma Assert(IsLeaf(GetRight(Tree)) = True);
-
   -- Clearing the right branch
   ClearRight(Tree);
 

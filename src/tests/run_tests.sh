@@ -8,7 +8,7 @@ gnatmake ../*.adb
 
 # Prepare tests
 echo "\nCompiling test file..."
-gnatmake tests_binary_tree.adb
+gnatmake -gnata tests_binary_tree.adb
 
 # Run tests
 echo "\nRunning test files:"

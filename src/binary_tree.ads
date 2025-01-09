@@ -11,12 +11,12 @@ package Binary_Tree is
 
 	type T_Tree is limited private;
 
-	Data_Free_By_Third_Party_Exception: Exception;	
+	Null_Tree_Exception: Exception;	
 
   -- ### Constructor ###
 
 	-- Initialiser un Tree Tree. L'Tree est vide.
-	procedure Init(Tree: out T_Tree; Data: in T_Data) with
+	procedure Init(Tree: in out T_Tree; Data: in T_Data) with
 		Post => (IsBranchEmpty(Tree, True) and IsBranchEmpty(Tree, False)) and (IsEmpty(Tree) = False);
 
   -- ### Getters / Setters ###
@@ -26,24 +26,22 @@ package Binary_Tree is
 
 	-- Change the value of the binary tree's left branch
 	procedure SetLeft (Tree: in out T_Tree; Data: in T_Data) with
-		Post => (IsBranchEmpty(Tree, True) /= IsBranchEmpty(Tree, True)'Old and GetSize (Tree) /= GetSize (Tree)'Old) and
-		        (IsBranchEmpty(Tree, True)  = IsBranchEmpty(Tree, True)'Old and GetSize (Tree)  = GetSize (Tree)'Old);
+		Post => IsBranchEmpty(Tree, True) = False;
 
 	-- Clears the value of the binary tree's left branch
 	procedure ClearLeft (Tree: in out T_Tree) with
-		Post => (IsBranchEmpty(Tree, True) and GetSize (Tree) /= GetSize (Tree)'Old);
+		Post => IsBranchEmpty(Tree, True) and GetSize(Tree) = GetSize(Tree)'Old - 1 ;
 
 	-- Returns the value of the binary tree's right branch
 	function GetRight (Tree: in T_Tree) return T_Tree; 
 
 	-- Change the value of the binary tree's right branch
 	procedure SetRight (Tree: in out T_Tree; Data: in T_Data) with
-		Post => (IsBranchEmpty(Tree, False) /= IsBranchEmpty(Tree, False)'Old and GetSize (Tree) /= GetSize (Tree)'Old) and
-		        (IsBranchEmpty(Tree, False)  = IsBranchEmpty(Tree, False)'Old and GetSize (Tree)  = GetSize (Tree)'Old);
+		Post => IsBranchEmpty(Tree, False) = False;
 
 	-- Clears the value of the binary tree's right branch
 	procedure ClearRight (Tree: in out T_Tree) with
-		Post => (IsBranchEmpty(Tree, False) and GetSize (Tree) /= GetSize (Tree)'Old);
+		Post => IsBranchEmpty(Tree, False) and GetSize(Tree) = GetSize(Tree)'Old - 1 ;
 
 	-- Returns the data of the binary tree
 	function GetData (Tree: in T_Tree) return T_Data; 

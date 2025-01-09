@@ -9,10 +9,10 @@ package body Binary_Tree is
 
   -- ### Constructor ###
 
-  procedure Init(Tree: out T_Tree; Data: in T_Data) is
-   begin
-      Tree := new T_Node'(Data => Data, Left => null, Right => null);
-   end Init;
+  procedure Init(Tree: in out T_Tree; Data: in T_Data) is
+  begin
+    Tree := new T_Node'(Data => Data, Left => null, Right => null);
+  end Init;
 
   -- ### Getters / Setters ###
 
@@ -63,11 +63,17 @@ package body Binary_Tree is
 	-- Determine if the tree's branch is empty
 	function IsBranchEmpty (Tree: in T_Tree; left: in Boolean) return Boolean is
   begin
-    if (left = True) then
+    if Tree = null then
+      raise Null_Tree_Exception;
+    elsif left then
       return Tree.Left = null;
     else
       return Tree.Right = null;
     end if;
+  exception
+    when Null_Tree_Exception =>
+      Put_Line("Tree was null");
+      return True;
   end IsBranchEmpty;
 
 	-- Determine if the tree is a leaf
@@ -94,7 +100,7 @@ package body Binary_Tree is
     end if;
 
     -- Get the size of the right branch if exists
-    if (IsBranchEmpty(Tree, True) = False) then
+    if (IsBranchEmpty(Tree, False) = False) then
       Right_Size := 1 + GetSize(Tree.Right);
     end if;
 
