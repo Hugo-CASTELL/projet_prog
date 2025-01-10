@@ -9,6 +9,7 @@ package body Binary_Tree is
 
   -- ### Constructor ###
 
+	-- Initialize a Tree with a data
   procedure Init(Tree: in out T_Tree; Data: in T_Data) is
   begin
     Tree := new T_Node'(Data => Data, Left => null, Right => null);

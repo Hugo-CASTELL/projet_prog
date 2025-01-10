@@ -15,7 +15,7 @@ package Binary_Tree is
 
   -- ### Constructor ###
 
-	-- Initialiser un Tree Tree. L'Tree est vide.
+	-- Initialize a Tree with a data
 	procedure Init(Tree: in out T_Tree; Data: in T_Data) with
 		Post => (IsBranchEmpty(Tree, True) and IsBranchEmpty(Tree, False)) and (IsEmpty(Tree) = False);
 
@@ -30,7 +30,7 @@ package Binary_Tree is
 
 	-- Clears the value of the binary tree's left branch
 	procedure ClearLeft (Tree: in out T_Tree) with
-		Post => IsBranchEmpty(Tree, True) and GetSize(Tree) = GetSize(Tree)'Old - 1 ;
+		Post => IsBranchEmpty(Tree, True) and GetSize(Tree) < GetSize(Tree)'Old ;
 
 	-- Returns the value of the binary tree's right branch
 	function GetRight (Tree: in T_Tree) return T_Tree; 
@@ -41,7 +41,7 @@ package Binary_Tree is
 
 	-- Clears the value of the binary tree's right branch
 	procedure ClearRight (Tree: in out T_Tree) with
-		Post => IsBranchEmpty(Tree, False) and GetSize(Tree) = GetSize(Tree)'Old - 1 ;
+		Post => IsBranchEmpty(Tree, False) and GetSize(Tree) < GetSize(Tree)'Old;
 
 	-- Returns the data of the binary tree
 	function GetData (Tree: in T_Tree) return T_Data; 
