@@ -6,11 +6,7 @@ package Genealogic_Tree is
 
   -- ### Type and Exceptions ###
 
-	type T_Person;
-	type T_Person is
-		record
-			ID: Integer;
-		end record;
+	type T_Person is limited private;
 
   -- ### Constructor ###
 
@@ -26,5 +22,14 @@ package Genealogic_Tree is
   -- #-------------------#
   -- # T_Genealogic_Tree #
   -- #-------------------#
+
+  private
+
+	type T_Person_Fields;
+	type T_Person is access T_Person_Fields;
+	type T_Person_Fields is
+		record
+			ID: Integer;
+		end record;
 
 end Genealogic_Tree;
