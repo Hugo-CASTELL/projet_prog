@@ -23,6 +23,16 @@ package Genealogic_Tree is
   -- # T_Genealogic_Tree #
   -- #-------------------#
 
+  -- ### Type and Exceptions ###
+
+	package Genealogic_Tree_Of_Persons is
+	  new Binary_Tree (T_Data => T_Person);
+	use Genealogic_Tree_Of_Persons;
+
+	subtype T_Genealogic_Tree is Genealogic_Tree_Of_Persons.T_Tree;
+
+  -- ### Functions ###
+
   private
 
 	type T_Person_Fields;
