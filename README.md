@@ -3,6 +3,8 @@
 - [Hugo CASTELL](mailto:hugo.castell@etu.inp-n7.fr)
 - [Arthur LEVI](mailto:arthur.levi@etu.inp-n7.fr)
 
+## Raccourcis
+
 - [Livrables du projet](./livrables/)
 
 - [Manuel d'utilisation (TODO)]()
