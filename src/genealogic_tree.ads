@@ -14,10 +14,28 @@ package Genealogic_Tree is
 	procedure Init(Person: in out T_Person; ID: in Integer) with
 		Post => GetID(Person) = ID;
 
+	-- Add parent
+	procedure AddParent(Tree: in out T_Genealogic_Tree; ID: in Integer; IsFemale : in Boolean) with
+
+	-- Delete persons of the tree
+	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) with
+
   -- ### Getters / Setters ###
 
 	-- Returns the id of the person
-	function GetID (Person: in T_Person) return Integer; 
+	function GetID (Person: in T_Person) return Integer;
+
+	-- Returns the number of ancestors of the person
+	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Integer;
+
+	-- Returns all the ID of the ancestors of the person
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person;
+
+	-- Print the tree
+	procedure PrintTree(Tree: in out T_Genealogic_Tree) with
+
+	-- Returns the persons who don't have parents
+	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person;
 
   -- #-------------------#
   -- # T_Genealogic_Tree #
@@ -41,5 +59,6 @@ package Genealogic_Tree is
 		record
 			ID: Integer;
 		end record;
+	type T_Tab_Person is array (1..100) of T_Person;
 
 end Genealogic_Tree;
