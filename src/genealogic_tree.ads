@@ -15,10 +15,13 @@ package Genealogic_Tree is
 		Post => GetID(Person) = ID;
 
 	-- Add parent
-	procedure AddParent(Tree: in out T_Genealogic_Tree; ID: in Integer; IsFemale : in Boolean) with
+	procedure AddParent(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean; IDParent: in Integer) with
+		Post => ((IsFemale = False) and (GetID(GetLeft(T_Person)) = IDParent)) or ((IsFemale = True) and (GetID(GetRight(T_Person)) = IDParent)); -- Si on ajoute une mere, on vérifie l'ID de la personne de droite et si on ajoute un pere, l'ID de gauche
 
 	-- Delete persons of the tree
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) with
+		Pre => (Person in Tree),
+		Post => (Tree'Old /= Tree'New) and (not(Person in Tree'New)); -- L'arbre en entrée doit être différent de celui en sortie. La personne renseignée ne doit plus être dans l'arbre
 
   -- ### Getters / Setters ###
 
@@ -26,16 +29,20 @@ package Genealogic_Tree is
 	function GetID (Person: in T_Person) return Integer;
 
 	-- Returns the number of ancestors of the person
-	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Integer;
+	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Integer with
+		Pre => (Person in Tree), -- La personne renseignée doit être dans l'arbre fourni
+		Post => (NumberAncestors'Result >= 1); -- Le nombre d'ancêtres doit être de 1 minimum car la personne renseignée est compris dans les ancêtres
 
 	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person;
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person with
+		Pre => (Person in Tree);
 
 	-- Print the tree
-	procedure PrintTree(Tree: in out T_Genealogic_Tree) with
+	procedure PrintTree(Tree: in out T_Genealogic_Tree);
 
 	-- Returns the persons who don't have parents
-	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person;
+	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person with
+		Pre => ((NumberParent >= 0) and (NumberParent <= 2));
 
   -- #-------------------#
   -- # T_Genealogic_Tree #
