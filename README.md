@@ -25,5 +25,5 @@ cd ./src/tests/
 
 Lancer le script de tests :
 ```
-chmod 777 ./run_tests.sh && ./run_tests.sh
+chmod +x ./run_tests.sh && sh ./run_tests.sh
 ```
