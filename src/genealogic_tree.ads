@@ -38,7 +38,7 @@ package Genealogic_Tree is
 		Pre => (Person in Tree);
 
 	-- Print the tree
-	procedure PrintTree(Tree: in out T_Genealogic_Tree);
+	procedure PrintTree(Tree: in T_Genealogic_Tree);
 
 	-- Returns the persons who don't have parents
 	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person with

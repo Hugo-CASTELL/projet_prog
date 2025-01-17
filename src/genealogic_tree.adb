@@ -17,12 +17,12 @@ package body Genealogic_Tree is
   end Init;
 
 	-- Add parent
-	procedure AddParent(Tree: in out T_Genealogic_Tree; ID: in Integer; IsFemale : in Boolean) is
+	procedure AddParent(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean; IDParent: in Integer) is
   begin
     Null;
   end AddParent;
 
-	-- Delete persons of the tree
+	-- Delete persons of the tree 
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) is
   begin
     Null;
@@ -37,27 +37,27 @@ package body Genealogic_Tree is
   end GetID;
 
 	-- Returns the number of ancestors of the person
-	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) is
+	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Integer is
   begin
-    return Integer;
+    return Null;
   end NumberAncestors;
 
 	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) is
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person is
   begin
-    return T_Tab_Person;
+    return Null;
   end AncestorsGen;
 
 	-- Print the tree
-	procedure PrintTree(Tree: in out T_Genealogic_Tree) is
+	procedure PrintTree(Tree: in T_Genealogic_Tree) is
   begin
     Null;
   end PrintTree;
 
 	-- Returns the persons who don't have parents
-	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) is
+	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person is
   begin
-    return T_Tab_Person;
+    return Null;
   end PersonsWithXParents;
 
 
