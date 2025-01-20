@@ -9,7 +9,7 @@ package Binary_Tree is
 
   -- ### Type and Exceptions ###
 
-	type T_Tree is limited private;
+	type T_Tree is private;
 
 	Null_Tree_Exception: Exception;	
 
