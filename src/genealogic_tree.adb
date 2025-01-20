@@ -30,7 +30,11 @@ package body Genealogic_Tree is
 	-- Add parent
 	procedure AddParent(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean) is
   begin
-    Null;
+    if IsFemale then
+      SetRight(Tree, Person);
+    else
+      SetLeft(Tree, Person);
+    end if;
   end AddParent;
 
 	-- Delete persons of the tree 
@@ -67,8 +71,11 @@ package body Genealogic_Tree is
 
 	-- Determinates if the person is in tree
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Integer) return Boolean is
+    searched_node : T_Genealogic_Tree := Null;
+    current_gen : T_Tab_Genealogic_Tree;
+    next_gen : T_Tab_Genealogic_Tree;
   begin
-    return True;
+    return searched_node /= Null;
   end FindInTree;
 
 end Genealogic_Tree;

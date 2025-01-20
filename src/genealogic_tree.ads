@@ -40,10 +40,21 @@ package Genealogic_Tree is
 	use Genealogic_Tree_Of_Persons;
 
 	subtype T_Genealogic_Tree is Genealogic_Tree_Of_Persons.T_Tree;
-  function GetLeft (Tree: T_Genealogic_Tree) return T_Genealogic_Tree renames Genealogic_Tree_Of_Persons.GetLeft;
-  function GetRight (Tree: T_Genealogic_Tree) return T_Genealogic_Tree renames Genealogic_Tree_Of_Persons.GetRight;
-	function GetData (Tree: in T_Genealogic_Tree) return T_Person renames Genealogic_Tree_Of_Persons.GetData; 
+	type T_Tab_Genealogic_Tree is array (1..100) of T_Genealogic_Tree;
 
+	procedure Init(Tree: in out T_Genealogic_Tree; Data: in T_Person) renames Genealogic_Tree_Of_Persons.Init;
+  function GetLeft (Tree: T_Genealogic_Tree) return T_Genealogic_Tree renames Genealogic_Tree_Of_Persons.GetLeft;
+	procedure SetLeft (Tree: in out T_Genealogic_Tree ; Data: in T_Person) renames Genealogic_Tree_Of_Persons.SetLeft;
+	procedure ClearLeft (Tree: in out T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.ClearLeft;
+  function GetRight (Tree: T_Genealogic_Tree) return T_Genealogic_Tree renames Genealogic_Tree_Of_Persons.GetRight;
+	procedure SetRight (Tree: in out T_Genealogic_Tree; Data: in T_Person) renames Genealogic_Tree_Of_Persons.SetRight;
+	procedure ClearRight (Tree: in out T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.ClearRight;
+	function GetData (Tree: in T_Genealogic_Tree) return T_Person renames Genealogic_Tree_Of_Persons.GetData; 
+	function IsBranchEmpty (Tree: in T_Genealogic_Tree ; left: in Boolean) return Boolean renames Genealogic_Tree_Of_Persons.IsBranchEmpty;
+	function IsLeaf (Tree: in T_Genealogic_Tree) return Boolean renames Genealogic_Tree_Of_Persons.IsLeaf;
+	function IsEmpty (Tree: in T_Genealogic_Tree) return Boolean renames Genealogic_Tree_Of_Persons.IsEmpty;
+	function GetSize (Tree: in T_Genealogic_Tree) return Integer renames Genealogic_Tree_Of_Persons.GetSize;
+	procedure Print (Tree: in T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.Print;
 
   -- ### Functions ###
 
