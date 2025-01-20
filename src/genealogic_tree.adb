@@ -1,6 +1,5 @@
 with Ada.Text_IO;            use Ada.Text_IO;
 with Ada.Integer_Text_IO;    use Ada.Integer_Text_IO;
-with Ada.Unchecked_Deallocation;
 
 package body Genealogic_Tree is
 
@@ -16,8 +15,20 @@ package body Genealogic_Tree is
     Person := new T_Person_Fields'(ID => ID);
   end Init;
 
+  -- ### Getters / Setters ###
+
+	-- Returns the id of the person
+	function GetID (Person: in T_Person) return Integer is
+  begin
+    return Person.ID;
+  end GetID;
+
+  -- #-------------------#
+  -- # T_Genealogic_Tree #
+  -- #-------------------#
+
 	-- Add parent
-	procedure AddParent(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean; IDParent: in Integer) is
+	procedure AddParent(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean) is
   begin
     Null;
   end AddParent;
@@ -28,24 +39,17 @@ package body Genealogic_Tree is
     Null;
   end DeletePerson;
 
-  -- ### Getters / Setters ###
-
-	-- Returns the id of the person
-	function GetID (Person: in T_Person) return Integer is
-  begin
-    return Person.ID;
-  end GetID;
-
 	-- Returns the number of ancestors of the person
 	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Integer is
   begin
-    return Null;
+    return 0;
   end NumberAncestors;
 
 	-- Returns all the ID of the ancestors of the person
 	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person is
+    todo: T_Tab_Person;
   begin
-    return Null;
+    return todo;
   end AncestorsGen;
 
 	-- Print the tree
@@ -56,14 +60,15 @@ package body Genealogic_Tree is
 
 	-- Returns the persons who don't have parents
 	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person is
+    todo: T_Tab_Person;
   begin
-    return Null;
+    return todo;
   end PersonsWithXParents;
 
-
-
-  -- #-------------------#
-  -- # T_Genealogic_Tree #
-  -- #-------------------#
+	-- Determinates if the person is in tree
+	function FindInTree(Tree: in T_Genealogic_Tree; ID: Integer) return Boolean is
+  begin
+    return True;
+  end FindInTree;
 
 end Genealogic_Tree;
