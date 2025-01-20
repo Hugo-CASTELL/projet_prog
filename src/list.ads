@@ -8,29 +8,29 @@ package List is
    -- Initialize a list
    procedure Init(List : out T_List);
 
-   -- Ajouter un élément à la List
+   -- Add an element at the end of the list
    procedure Add(List : in out T_List; Element : in T_Type) with
-   Pre => List.Size < Capacity;
+   Pre => GetSize(List) < Capacity;
 
-   -- Modifie un élément à la List
+   -- Modify an element at a certain index
    procedure Modify(List : in out T_List; Element : in T_Type; Index : in Natural) with
-   Pre => Index <= List.Size;
+   Pre => Index <= GetSize(List);
 
-   -- Insere un élément à la List à l'index voulus (le reste est décalé a droite)
+   -- Insert an element to the desired index
    procedure Insert(List : in out T_List; Element : in T_Type; Index : in Natural) with
-   Pre => Index <= List.Size AND List.Size < Capacity;
+   Pre => Index <= GetSize(List) AND GetSize(List) < Capacity;
 
-   -- Supprimer le dernier élément de la List
+   -- Delete the element at a certain index
    procedure Delete(List : in out T_List; Index : in Natural) with
-   Pre => List.Size > 0;
+   Pre => GetSize(List) > 0;
 
    -- Add list 2 to list 1
    procedure Concat(List1 : in out T_List; List2 : in T_List) with
-   Pre => (List1.Size + List2.Size) <= Capacity;
+   Pre => (GetSize(List1) + GetSize(List2)) <= Capacity;
 
    -- Get an element from the list given its index
    function Get(List : in T_List; Index : in Natural) return T_Type with
-   Pre => Index <= List.Size;
+   Pre => Index <= GetSize(List);
 
    -- Check if the list is full
    function IsFull(List : in T_List) return Boolean;
@@ -43,13 +43,11 @@ package List is
 
 
    private
-    -- Définition du tableau de Content
     type T_Content is array (1 .. Capacity) of T_Type;
 
-    -- Définition du type T_List
    type T_List is tagged record
       Content : T_Content;
-      Size  : Integer := 0;
+      Size : Integer := 0;
    end record;
 
 end List;

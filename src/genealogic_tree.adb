@@ -50,8 +50,8 @@ package body Genealogic_Tree is
   end NumberAncestors;
 
 	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person is
-    todo: T_Tab_Person;
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_List_Person is
+    todo: T_List_Person;
   begin
     return todo;
   end AncestorsGen;
@@ -63,19 +63,20 @@ package body Genealogic_Tree is
   end PrintTree;
 
 	-- Returns the persons who don't have parents
-	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person is
-    todo: T_Tab_Person;
+	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_List_Person is
+    todo: T_List_Person;
   begin
     return todo;
   end PersonsWithXParents;
 
 	-- Determinates if the person is in tree
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Integer) return Boolean is
-    searched_node : T_Genealogic_Tree := Null;
-    current_gen : T_Tab_Genealogic_Tree;
-    next_gen : T_Tab_Genealogic_Tree;
+    -- searched_node : T_Genealogic_Tree := Null;
+    -- current_gen : T_Tab_Genealogic_Tree;
+    -- next_gen : T_Tab_Genealogic_Tree;
   begin
-    return searched_node /= Null;
+    -- return searched_node /= Null;
+    return True;
   end FindInTree;
 
 end Genealogic_Tree;

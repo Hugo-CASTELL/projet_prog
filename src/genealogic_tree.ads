@@ -1,4 +1,5 @@
 with Binary_Tree;
+with List;
 
 package Genealogic_Tree is
 
@@ -16,7 +17,10 @@ package Genealogic_Tree is
 	type T_Person;
 	type T_Person is access T_Person_Fields;
 
-	type T_Tab_Person is array (1..100) of T_Person;
+	package List_Persons is
+	  new List (T_Type => T_Person, Capacity => 100);
+	use List_Persons;
+	type T_List_Person is new List_Persons.T_List with null record;
 
   -- ### Constructor ###
 
@@ -40,7 +44,11 @@ package Genealogic_Tree is
 	use Genealogic_Tree_Of_Persons;
 
 	subtype T_Genealogic_Tree is Genealogic_Tree_Of_Persons.T_Tree;
-	type T_Tab_Genealogic_Tree is array (1..100) of T_Genealogic_Tree;
+
+	package List_Genealogic_Tree is
+	  new List (T_Type => T_Genealogic_Tree, Capacity => 100);
+	use List_Genealogic_Tree;
+	type T_List_Genealogic_Tree is new List_Genealogic_Tree.T_List with null record;
 
 	procedure Init(Tree: in out T_Genealogic_Tree; Data: in T_Person) renames Genealogic_Tree_Of_Persons.Init;
   function GetLeft (Tree: T_Genealogic_Tree) return T_Genealogic_Tree renames Genealogic_Tree_Of_Persons.GetLeft;
@@ -73,14 +81,14 @@ package Genealogic_Tree is
 		Post => (NumberAncestors'Result >= 1); -- Le nombre d'ancêtres doit être de 1 minimum car la personne renseignée est compris dans les ancêtres
 
 	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_Tab_Person with
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_List_Person with
 		Pre => (FindInTree(Tree, GetID(Person)) = True);
 
 	-- Print the tree
 	procedure PrintTree(Tree: in T_Genealogic_Tree);
 
 	-- Returns the persons who don't have parents
-	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_Tab_Person with
+	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_List_Person with
 		Pre => ((NumberParent >= 0) and (NumberParent <= 2));
 
 	-- Determinates if the person is in tree
