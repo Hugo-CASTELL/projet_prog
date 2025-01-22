@@ -63,6 +63,7 @@ package Genealogic_Tree is
 	function IsEmpty (Tree: in T_Genealogic_Tree) return Boolean renames Genealogic_Tree_Of_Persons.IsEmpty;
 	function GetSize (Tree: in T_Genealogic_Tree) return Integer renames Genealogic_Tree_Of_Persons.GetSize;
 	procedure Print (Tree: in T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.Print;
+	procedure Delete (Tree: in out T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.Delete;
 
   -- ### Functions ###
 
@@ -93,5 +94,5 @@ package Genealogic_Tree is
 
 	-- Determinates if the person is in tree
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Integer) return Boolean;
-
+  
 end Genealogic_Tree;

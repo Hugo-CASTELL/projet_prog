@@ -41,6 +41,10 @@ package List is
    -- Determinate the size of the list
    function GetSize(List : in T_List) return Natural;
 
+   -- Clear the list
+   procedure Clear(List : in out T_List) with
+   Post => GetSize(List) = 0;
+
 
    private
     type T_Content is array (1 .. Capacity) of T_Type;

@@ -4,9 +4,6 @@ with Ada.Unchecked_Deallocation;
 
 package body Binary_Tree is
 
-	procedure Free is
-		new Ada.Unchecked_Deallocation (Object => T_Node, Name => T_Tree);
-
   -- ### Constructor ###
 
 	-- Initialize a Tree with a data
@@ -32,7 +29,7 @@ package body Binary_Tree is
 	-- Clears the value of the binary tree's left branch
 	procedure ClearLeft (Tree: in out T_Tree) is
   begin
-    Tree.Left := null;
+    Delete(Tree.Left);
   end ClearLeft;
 
 	-- Returns the value of the binary tree's right branch
@@ -50,7 +47,7 @@ package body Binary_Tree is
 	-- Clears the value of the binary tree's right branch
 	procedure ClearRight (Tree: in out T_Tree) is
   begin
-    Tree.Right := null;
+    Delete(Tree.Right);
   end ClearRight;
 
 	-- Returns the data of the binary tree
@@ -84,7 +81,7 @@ package body Binary_Tree is
   end IsLeaf;
 
 	-- Determine if the tree has a data
-	function IsEmpty (Tree: in T_Tree) return Boolean is
+	function IsEmpty (Tree: T_Tree) return Boolean is
   begin
     return Tree = null; 
   end IsEmpty;
@@ -115,5 +112,28 @@ package body Binary_Tree is
   begin
     Put("TODO");
   end Print;
+
+	procedure Free is
+		new Ada.Unchecked_Deallocation (Object => T_Node, Name => T_Tree);
+
+  -- Deletes the binary tree and each of its ancestors 
+	procedure Delete(Tree: in out T_Tree) is
+  begin
+    -- Recursive deleting
+    if IsBranchEmpty (Tree, False) = False then
+      Delete(Tree.Right);
+      Tree.Right := null;
+    end if;
+    if IsBranchEmpty (Tree, True) = False then
+      Delete(Tree.Left);
+      Tree.Left := null;
+    end if;
+
+    -- Delete if leaf confirmed
+    if IsLeaf(Tree) then
+      Free(Tree);
+      Tree := null;
+    end if;
+  end Delete;
 
 end Binary_Tree;

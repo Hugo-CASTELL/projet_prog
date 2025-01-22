@@ -39,6 +39,7 @@ begin
   -- Testing leaf detection
   pragma Assert(IsLeaf(GetLeft(Tree)) = True);
   pragma Assert(IsLeaf(GetRight(Tree)) = True);
+
   -- Clearing the right branch
   ClearRight(Tree);
 

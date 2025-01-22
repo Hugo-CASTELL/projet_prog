@@ -72,7 +72,12 @@ package body List is
    -- Determinate the size of the list
    function GetSize(List : in T_List) return Natural is
    begin
-          return List.Size;
+     return List.Size;
    end GetSize;
+
+   procedure Clear(List : in out T_List) is
+   begin
+      List.Size := 0;
+   end Clear;
 
 end List;
