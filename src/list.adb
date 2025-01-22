@@ -22,7 +22,7 @@ package body List is
         List.Size := List.Size - 1;
    end Delete;
 
-    -- Modify an element of the list
+   -- Modify an element of the list
    procedure Modify(List : in out T_List; Element : in T_Type; Index : in Natural) is
    begin
         List.Content(Index) := Element;

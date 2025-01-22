@@ -5,11 +5,86 @@ with Genealogic_Tree;             use Genealogic_Tree;
 procedure Tests_List is
 
   List : T_List_Person;
+  PersonVar : T_Person;
+  PersonVar2 : T_Person;
+  SizeVar : Natural;
+  List1 : T_List_Person;
+  List2 : T_List_Person;
+  SizeList1 : Natural;
+  SizeList2 : Natural;
 
 begin
-  Init(List);
-
+  
   -- Testing initialisation
+  Init(List);
   pragma Assert(GetSize(List) = 0);
+
+  -- Test Add
+  PersonVar := new T_Person_Fields'(ID => 65);
+  Add(List, PersonVar);
+  pragma Assert(Get(List, GetSize(List)) = PersonVar);
+  PersonVar := new T_Person_Fields'(ID => 32);
+  Add(List, PersonVar);
+  pragma Assert(Get(List, GetSize(List)) = PersonVar);
+  PersonVar := new T_Person_Fields'(ID => 21);
+  Add(List, PersonVar);
+  pragma Assert(Get(List, GetSize(List)) = PersonVar);
+
+  -- Test Delete
+  SizeVar := GetSize(List);
+  PersonVar := Get(List, 2);
+  Delete(List, 2);
+  pragma Assert(GetSize(List) = SizeVar - 1);
+  pragma Assert(Get(List, 2) /= PersonVar);
+
+  -- Test Modify
+  PersonVar := new T_Person_Fields'(ID => 12);
+  pragma Assert(Get(List, 1) /= PersonVar);
+  Modify(List, PersonVar, 1);
+  pragma Assert(Get(List, 1) = PersonVar);
+
+  -- Test Insert
+  SizeVar := GetSize(List);
+  PersonVar2 := Get(List, 2);
+  PersonVar := new T_Person_Fields'(ID => 40);
+  Insert(List, PersonVar, 2);
+  pragma Assert(GetSize(List) = SizeVar + 1);
+  pragma Assert(Get(List, 2) = PersonVar);
+  pragma Assert(Get(List, 3) = PersonVar2);
+
+  -- Test Concat
+  Init(List1);
+  Init(List2);
+  Add(List1, new T_Person_Fields'(ID => 52));
+  Add(List1, new T_Person_Fields'(ID => 87));
+  Add(List1, new T_Person_Fields'(ID => 11));
+  Add(List2, new T_Person_Fields'(ID => 38));
+  Add(List2, new T_Person_Fields'(ID => 77));
+  SizeList1 := GetSize(List1);
+  SizeList2 := GetSize(List2);
+  PersonVar := Get(List1, 2);
+  Concat(List1, List2);
+  pragma Assert(GetSize(List1) = (SizeList1 + SizeList2));
+  pragma Assert(Get(List1, (SizeList1 + 1)) = Get(List2, 1));
+  pragma Assert(Get(List1, 2) = PersonVar);
+
+  -- Test Get
+  Init(List);
+  Add(List, new T_Person_Fields'(ID => 44));
+  PersonVar := new T_Person_Fields'(ID => 26);
+  Add(List, PersonVar);
+  Add(List, new T_Person_Fields'(ID => 62));
+  pragma Assert(Get(List, 2) = PersonVar);
+
+  -- Test IsFull
+  
+  -- Test IsEmpty
+  Init(List);
+  pragma Assert(IsEmpty(List) = True);
+  Add(List, new T_Person_Fields'(ID => 27));
+  pragma Assert(IsEmpty(List) = False);
+
+  -- Test GetSize
+
 
 end Tests_List;
