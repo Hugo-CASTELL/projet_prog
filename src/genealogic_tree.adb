@@ -1,5 +1,6 @@
 with Ada.Text_IO;            use Ada.Text_IO;
 with Ada.Integer_Text_IO;    use Ada.Integer_Text_IO;
+with Ada.Unchecked_Deallocation;
 
 package body Genealogic_Tree is
 
@@ -39,8 +40,40 @@ package body Genealogic_Tree is
 
 	-- Delete persons of the tree 
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) is
+    searched_node : T_Genealogic_Tree;
+    current_node : T_Genealogic_Tree;
+    current_gen : T_List_Genealogic_Tree;
+    next_gen : T_List_Genealogic_Tree;
   begin
-    Null;
+    -- Init
+    current_gen.Add(Tree);
+
+    -- Search the person to delete
+    while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
+      for i in 1..GetSize(current_gen) loop
+        current_node := Get(current_gen, i);
+        if GetID(GetData(current_node)) = GetID(Person) then
+          searched_node := current_node;
+        else
+          if IsBranchEmpty (current_node, False) then
+            Add(next_gen, GetLeft(current_node));
+          end if;
+          if IsBranchEmpty (current_node, True) then
+            Add(next_gen, GetRight(current_node));
+          end if;
+        end if;
+      end loop;
+
+      Clear(current_gen);
+      Concat (current_gen, next_gen);
+      Clear(next_gen);
+    end loop;
+
+    -- if the person was found
+    if (IsEmpty(searched_node) = False) then
+      Delete(searched_node);
+    end if;
+
   end DeletePerson;
 
 	-- Returns the number of ancestors of the person

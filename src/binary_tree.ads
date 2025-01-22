@@ -55,7 +55,7 @@ package Binary_Tree is
 	function IsLeaf (Tree: in T_Tree) return Boolean;
 
 	-- Determine if the tree has a data
-	function IsEmpty (Tree: in T_Tree) return Boolean;
+	function IsEmpty (Tree: T_Tree) return Boolean;
 
 	-- Returns the size of the tree
 	function GetSize (Tree: in T_Tree) return Integer with
@@ -75,6 +75,9 @@ package Binary_Tree is
 	--          > Cle3: Valeur3
 	--      > Cle4: Valeur 4
 	--          < Cle5: Valeur 5
+
+  procedure Delete(Tree: in out T_Tree) with
+		Post => IsEmpty(Tree);
 
 private
 
