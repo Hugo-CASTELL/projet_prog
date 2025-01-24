@@ -1,5 +1,6 @@
 generic
 	type T_Data is private;
+  with function Is_Null(Data : T_Data) return Boolean is <>;
 
 package Binary_Tree is
 

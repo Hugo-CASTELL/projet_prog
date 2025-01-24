@@ -4,8 +4,13 @@ with Binary_Tree;
 
 procedure Tests_Binary_Tree is
 
+  function Is_Null(Data: Character) return Boolean is
+  begin
+    return Data = ' ';
+  end Is_Null;
+
   package Char_Tree is
-	  new Binary_Tree (T_Data => Character);
+	  new Binary_Tree (T_Data => Character, Is_Null => Is_Null);
 	use Char_Tree;
 
   Tree : T_Tree;

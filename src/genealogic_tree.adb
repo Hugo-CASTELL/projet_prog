@@ -24,6 +24,14 @@ package body Genealogic_Tree is
     return Person.ID;
   end GetID;
 
+  -- ### Functions ###
+
+  -- Check if a person is null
+  function Is_Null(Person : T_Person) return Boolean is
+  begin
+    return Person = null;
+  end Is_Null;
+
   -- #-------------------#
   -- # T_Genealogic_Tree #
   -- #-------------------#
@@ -47,7 +55,7 @@ package body Genealogic_Tree is
   end AddParentByPerson;
 
 	-- Delete persons of the tree 
-	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) is
+	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in out T_Person) is
     searched_node : T_Genealogic_Tree;
     current_node : T_Genealogic_Tree;
     current_gen : T_List_Genealogic_Tree;
@@ -82,9 +90,11 @@ package body Genealogic_Tree is
     -- if the person was found
     if (IsEmpty(searched_node) = False) then
       Delete(searched_node);
-      if IsEmpty(searched_node) then
-        Put_Line("TestDelete");
-      end if;
+    Put_Line("Deleting person node with data: " & searched_node'Image);
+
+      -- Clear any remaining references in lists
+      Clear(current_gen);
+      Clear(next_gen);
     end if;
 
   end DeletePerson;
@@ -149,7 +159,7 @@ package body Genealogic_Tree is
     end loop;
 
     -- if the person was found
-    return IsEmpty(searched_node);
+    return IsEmpty(searched_node) = False;
     
   end FindInTree;
 

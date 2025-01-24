@@ -60,18 +60,18 @@ package body Binary_Tree is
 
 	-- Determine if the tree's branch is empty
 	function IsBranchEmpty (Tree: in T_Tree; left: in Boolean) return Boolean is
+    branch : T_Tree;
   begin
-    if Tree = null then
-      raise Null_Tree_Exception;
-    elsif left then
-      return Tree.Left = null;
+    if left then
+      branch := Tree.Left;
     else
-      return Tree.Right = null;
+      branch := Tree.Right;
     end if;
-  exception
-    when Null_Tree_Exception =>
-      Put_Line("Tree was null");
-      return True;
+    Put_Line("Branch empty" & IsEmpty(branch)'Image);
+    if (IsEmpty(branch) = False) then
+      Put_Line("Branch Data" & GetData(branch)'Image);
+    end if;
+    return IsEmpty(branch);
   end IsBranchEmpty;
 
 	-- Determine if the tree is a leaf
@@ -83,7 +83,7 @@ package body Binary_Tree is
 	-- Determine if the tree has a data
 	function IsEmpty (Tree: T_Tree) return Boolean is
   begin
-    return Tree = null; 
+    return Tree = null or else Is_Null(Tree.Data);
   end IsEmpty;
 
 	-- Returns the size of the tree
@@ -91,15 +91,21 @@ package body Binary_Tree is
     Left_Size : Natural := 0;
     Right_Size : Natural := 0;
   begin
+    if IsEmpty(Tree) then
+      return 0;
+    end if;
 
     -- Get the size of the left branch if exists
     if (IsBranchEmpty(Tree, True) = False) then
-      Left_Size := GetSize(Tree.Left);
+    Put("LEFT");
+      Left_Size := GetSize(GetLeft(Tree));
+    Put("LEFT");
     end if;
 
     -- Get the size of the right branch if exists
     if (IsBranchEmpty(Tree, False) = False) then
-      Right_Size := GetSize(Tree.Right);
+    Put("Right");
+      Right_Size := GetSize(GetRight(Tree));
     end if;
 
     -- Addition both and 1
@@ -119,6 +125,10 @@ package body Binary_Tree is
   -- Deletes the binary tree and each of its ancestors 
 	procedure Delete(Tree: in out T_Tree) is
   begin
+    if IsEmpty(Tree) then
+      return;
+    end if;
+
     -- Recursive deleting
     if IsBranchEmpty (Tree, False) = False then
       Delete(Tree.Right);
@@ -133,6 +143,7 @@ package body Binary_Tree is
     if IsLeaf(Tree) then
       Free(Tree);
       Tree := null;
+      Put_Line("Deleting node with data: " & Tree'Image);
     end if;
   end Delete;
 

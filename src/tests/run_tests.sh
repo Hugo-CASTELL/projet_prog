@@ -4,14 +4,14 @@ cp ../*.adb ./
 cp ../*.ads ./
 
 echo "\nCompiling Ada source files from the parent directory..."
-gnatmake ../*.adb
+gnatmake -gnat2022 ../*.adb
 
 # Prepare tests
 echo "\nCompiling test file..."
-gnatmake -gnata tests_binary_tree.adb
-gnatmake -gnata tests_person.adb
-gnatmake -gnata tests_list.adb
-gnatmake -gnata tests_genealogic_tree.adb
+gnatmake -gnata -gnat2022 tests_binary_tree.adb
+gnatmake -gnata -gnat2022 tests_person.adb
+gnatmake -gnata -gnat2022 tests_list.adb
+gnatmake -gnata -gnat2022 tests_genealogic_tree.adb
 
 # Run tests
 echo "\nRunning test files:"

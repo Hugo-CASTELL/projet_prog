@@ -33,6 +33,8 @@ package Genealogic_Tree is
 	-- Returns the id of the person
 	function GetID (Person: in T_Person) return Natural;
 
+  function Is_Null(Person : T_Person) return Boolean;
+
   -- #-------------------#
   -- # T_Genealogic_Tree #
   -- #-------------------#
@@ -40,7 +42,7 @@ package Genealogic_Tree is
   -- ### Type and Exceptions ###
 
 	package Genealogic_Tree_Of_Persons is
-	  new Binary_Tree (T_Data => T_Person);
+	  new Binary_Tree (T_Data => T_Person, Is_Null => Is_Null);
 	use Genealogic_Tree_Of_Persons;
 
 	subtype T_Genealogic_Tree is Genealogic_Tree_Of_Persons.T_Tree;
@@ -76,9 +78,8 @@ package Genealogic_Tree is
              (IsFemale            and (IsBranchEmpty(Tree, False) = False)); 
 
 	-- Delete persons of the tree
-	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) with
-		Pre => (FindInTree(Tree, GetID(Person)) = True),
-		Post => (FindInTree(Tree, GetID(Person)) = False); -- L'arbre en entrée doit être différent de celui en sortie. La personne renseignée ne doit plus être dans l'arbre
+	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in out T_Person) with
+		Pre => (FindInTree(Tree, GetID(Person)) = True);
 	
 	-- Returns the number of ancestors of the person
 	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Natural with

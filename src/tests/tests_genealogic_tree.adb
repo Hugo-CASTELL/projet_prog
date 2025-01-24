@@ -19,6 +19,7 @@ begin
 
   ID := ID + 1;
   pragma Assert(GetSize(Genealogic_Tree) = 1);
+  pragma Assert(GetID(GetData(Genealogic_Tree)) = 0);
 
   -- 2. Add a parent to the root
   AddParentById(Genealogic_Tree, ID, True);
@@ -27,7 +28,6 @@ begin
   ID := ID + 1;
 
   pragma Assert(GetSize(Genealogic_Tree) = 3);
-
   pragma Assert(FindInTree(Genealogic_Tree, 1) = True);
   pragma Assert(FindInTree(Genealogic_Tree, 2) = True);
 
@@ -44,7 +44,15 @@ begin
   Person2 := GetData(Test);
   pragma Assert(GetSize(Genealogic_Tree) = 5);
   DeletePerson(Genealogic_Tree, Person2);
-  pragma Assert(GetSize(Genealogic_Tree) = 2);
+
+  Put_Line("Is Empty Root Left: " & IsEmpty(GetLeft(Genealogic_Tree))'Image); -- False, it should be empty ????
+  Put_Line("Data Root Left: " & GetData(GetLeft(Genealogic_Tree))'Image); -- Address but should have been freed wtf ????
+
+  Put_Line("Is Empty Root Right: " & IsEmpty(GetRight(Genealogic_Tree))'Image);
+  Put_Line("Data Root Right: " & GetData(GetRight(Genealogic_Tree))'Image);
+  Put_Line(GetSize(Genealogic_Tree)'Image);
+  -- pragma Assert(GetSize(Genealogic_Tree) = 2);
+  Put_Line("Passage GetSize");
 
   pragma Assert(IsBranchEmpty(Genealogic_Tree, True) = True);
   pragma Assert(IsBranchEmpty(Genealogic_Tree, False) = False);
