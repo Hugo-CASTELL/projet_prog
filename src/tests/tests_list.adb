@@ -77,7 +77,14 @@ begin
   pragma Assert(Get(List, 2) = PersonVar);
 
   -- Test IsFull
-  
+  Init(List);
+  for i in 1..99 loop
+    Add(List, new T_Person_Fields'(ID => (100+i)));
+  end loop;
+  pragma Assert(IsFull(List) = False);
+  Add(List, new T_Person_Fields'(ID => (90)));
+  pragma Assert(IsFull(List) = True);
+
   -- Test IsEmpty
   Init(List);
   pragma Assert(IsEmpty(List) = True);
@@ -85,6 +92,20 @@ begin
   pragma Assert(IsEmpty(List) = False);
 
   -- Test GetSize
+  Init(List);
+  pragma Assert(GetSize(List) = 0);
+  for i in 1..23 loop
+    Add(List, new T_Person_Fields'(ID => (100+i)));
+  end loop;
+  pragma Assert(GetSize(List) = 23);
 
+  -- Test Clear
+  Init(List);
+  for i in 1..48 loop
+    Add(List, new T_Person_Fields'(ID => (100+i)));
+  end loop;
+  pragma Assert(GetSize(List) /= 0);
+  Clear(List);
+  pragma Assert(GetSize(List) = 0);
 
 end Tests_List;
