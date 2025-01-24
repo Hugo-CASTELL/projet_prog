@@ -87,23 +87,23 @@ package body Binary_Tree is
   end IsEmpty;
 
 	-- Returns the size of the tree
-	function GetSize (Tree: in T_Tree) return Integer is
-    Left_Size : Integer := 0;
-    Right_Size : Integer := 0;
+	function GetSize (Tree: in T_Tree) return Natural is
+    Left_Size : Natural := 0;
+    Right_Size : Natural := 0;
   begin
 
     -- Get the size of the left branch if exists
     if (IsBranchEmpty(Tree, True) = False) then
-      Left_Size := 1 + GetSize(Tree.Left);
+      Left_Size := GetSize(Tree.Left);
     end if;
 
     -- Get the size of the right branch if exists
     if (IsBranchEmpty(Tree, False) = False) then
-      Right_Size := 1 + GetSize(Tree.Right);
+      Right_Size := GetSize(Tree.Right);
     end if;
 
-    -- Addition both and return
-    return Left_Size + Right_Size;
+    -- Addition both and 1
+    return 1 + Left_Size + Right_Size;
 
   end GetSize;
 

@@ -58,9 +58,8 @@ package Binary_Tree is
 	function IsEmpty (Tree: T_Tree) return Boolean;
 
 	-- Returns the size of the tree
-	function GetSize (Tree: in T_Tree) return Integer with
-		Post => GetSize'Result >= 0 and
-            (GetSize'Result = 0) = (IsBranchEmpty(Tree, True) and IsBranchEmpty(Tree, False));
+	function GetSize (Tree: in T_Tree) return Natural with
+		Post => (GetSize'Result = 1) = ((IsBranchEmpty(Tree, True) and IsBranchEmpty(Tree, False)));
 
 	-- Print the binary tree in the console
 	procedure Print (Tree: in T_Tree);

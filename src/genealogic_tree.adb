@@ -11,7 +11,7 @@ package body Genealogic_Tree is
   -- ### Constructor ###
 
 	-- Initializes a person
-	procedure Init(Person: in out T_Person; ID: in Integer) is
+	procedure Init(Person: in out T_Person; ID: in Natural) is
   begin
     Person := new T_Person_Fields'(ID => ID);
   end Init;
@@ -19,7 +19,7 @@ package body Genealogic_Tree is
   -- ### Getters / Setters ###
 
 	-- Returns the id of the person
-	function GetID (Person: in T_Person) return Integer is
+	function GetID (Person: in T_Person) return Natural is
   begin
     return Person.ID;
   end GetID;
@@ -29,14 +29,22 @@ package body Genealogic_Tree is
   -- #-------------------#
 
 	-- Add parent
-	procedure AddParent(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean) is
+	procedure AddParentById(Tree: in out T_Genealogic_Tree; ID_Person: in Natural; IsFemale: in Boolean) is
+    Person : T_Person;
+  begin
+    Init(Person, ID_Person);
+    AddParentByPerson(Tree, Person, IsFemale);
+  end AddParentById;
+
+	-- Add parent
+	procedure AddParentByPerson(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean) is
   begin
     if IsFemale then
       SetRight(Tree, Person);
     else
       SetLeft(Tree, Person);
     end if;
-  end AddParent;
+  end AddParentByPerson;
 
 	-- Delete persons of the tree 
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) is
@@ -76,14 +84,14 @@ package body Genealogic_Tree is
 
   end DeletePerson;
 
-	-- Returns the number of ancestors of the person
-	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Integer is
+	-- Returns the number of ancestors of the person, him included
+	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Natural is
   begin
     return 0;
   end NumberAncestors;
 
 	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Integer) return T_List_Person is
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Natural) return T_List_Person is
     todo: T_List_Person;
   begin
     return todo;
@@ -96,14 +104,14 @@ package body Genealogic_Tree is
   end PrintTree;
 
 	-- Returns the persons who don't have parents
-	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Integer) return T_List_Person is
+	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Natural) return T_List_Person is
     todo: T_List_Person;
   begin
     return todo;
   end PersonsWithXParents;
 
 	-- Determinates if the person is in tree
-	function FindInTree(Tree: in T_Genealogic_Tree; ID: Integer) return Boolean is
+	function FindInTree(Tree: in T_Genealogic_Tree; ID: Natural) return Boolean is
     -- searched_node : T_Genealogic_Tree := Null;
     -- current_gen : T_Tab_Genealogic_Tree;
     -- next_gen : T_Tab_Genealogic_Tree;

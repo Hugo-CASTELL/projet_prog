@@ -21,7 +21,7 @@ begin
   pragma Assert(IsBranchEmpty(Tree, False) = True);
 
   -- Testing size
-  pragma Assert(GetSize(Tree) = 0);
+  pragma Assert(GetSize(Tree) = 1);
 
   -- Set values to branches
   SetLeft (Tree, 'l');
@@ -32,9 +32,9 @@ begin
   pragma Assert(GetData(GetRight(Tree)) = 'r');
 
   -- Testing size with (and of) branches
-  pragma Assert(GetSize(Tree) = 2);
-  pragma Assert(GetSize(GetLeft(Tree)) = 0);
-  pragma Assert(GetSize(GetRight(Tree)) = 0);
+  pragma Assert(GetSize(Tree) = 3);
+  pragma Assert(GetSize(GetLeft(Tree)) = 1);
+  pragma Assert(GetSize(GetRight(Tree)) = 1);
 
   -- Testing leaf detection
   pragma Assert(IsLeaf(GetLeft(Tree)) = True);
@@ -45,6 +45,6 @@ begin
 
   -- Testing clearing
   pragma Assert(IsBranchEmpty(Tree, False) = True);
-  pragma Assert(GetSize(Tree) = 1);
+  pragma Assert(GetSize(Tree) = 2);
 
 end Tests_Binary_Tree;
