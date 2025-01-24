@@ -59,15 +59,17 @@ package body Genealogic_Tree is
     -- Search the person to delete
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
-        current_node := Get(current_gen, i);
-        if GetID(GetData(current_node)) = GetID(Person) then
-          searched_node := current_node;
-        else
-          if IsBranchEmpty (current_node, False) then
-            Add(next_gen, GetLeft(current_node));
-          end if;
-          if IsBranchEmpty (current_node, True) then
-            Add(next_gen, GetRight(current_node));
+        if IsEmpty(searched_node) then
+          current_node := Get(current_gen, i);
+          if GetID(GetData(current_node)) = GetID(Person) then
+            searched_node := current_node;
+          else
+            if (IsBranchEmpty (current_node, False) = False) then
+              Add(next_gen, GetLeft(current_node));
+            end if;
+            if (IsBranchEmpty (current_node, True) = False) then
+              Add(next_gen, GetRight(current_node));
+            end if;
           end if;
         end if;
       end loop;
@@ -80,6 +82,9 @@ package body Genealogic_Tree is
     -- if the person was found
     if (IsEmpty(searched_node) = False) then
       Delete(searched_node);
+      if IsEmpty(searched_node) then
+        Put_Line("TestDelete");
+      end if;
     end if;
 
   end DeletePerson;
@@ -112,12 +117,40 @@ package body Genealogic_Tree is
 
 	-- Determinates if the person is in tree
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Natural) return Boolean is
-    -- searched_node : T_Genealogic_Tree := Null;
-    -- current_gen : T_Tab_Genealogic_Tree;
-    -- next_gen : T_Tab_Genealogic_Tree;
+    searched_node : T_Genealogic_Tree;
+    current_node : T_Genealogic_Tree;
+    current_gen : T_List_Genealogic_Tree;
+    next_gen : T_List_Genealogic_Tree;
   begin
-    -- return searched_node /= Null;
-    return True;
+    -- Init
+    current_gen.Add(Tree);
+
+    -- Search the person to delete
+    while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
+      for i in 1..GetSize(current_gen) loop
+        if IsEmpty(searched_node) then
+          current_node := Get(current_gen, i);
+          if GetID(GetData(current_node)) = ID then
+            searched_node := current_node;
+          else
+            if (IsBranchEmpty (current_node, False) = False) then
+              Add(next_gen, GetLeft(current_node));
+            end if;
+            if (IsBranchEmpty (current_node, True) = False) then
+              Add(next_gen, GetRight(current_node));
+            end if;
+          end if;
+        end if;
+      end loop;
+
+      Clear(current_gen);
+      Concat (current_gen, next_gen);
+      Clear(next_gen);
+    end loop;
+
+    -- if the person was found
+    return IsEmpty(searched_node);
+    
   end FindInTree;
 
 end Genealogic_Tree;

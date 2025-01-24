@@ -79,7 +79,7 @@ package Genealogic_Tree is
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in T_Person) with
 		Pre => (FindInTree(Tree, GetID(Person)) = True),
 		Post => (FindInTree(Tree, GetID(Person)) = False); -- L'arbre en entrée doit être différent de celui en sortie. La personne renseignée ne doit plus être dans l'arbre
-
+	
 	-- Returns the number of ancestors of the person
 	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Natural with
 		Pre => (FindInTree(Tree, GetID(Person)) = True), -- La personne renseignée doit être dans l'arbre fourni

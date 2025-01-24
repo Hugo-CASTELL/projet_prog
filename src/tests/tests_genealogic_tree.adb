@@ -6,7 +6,9 @@ procedure Tests_Genealogic_Tree is
 
   silent : Boolean := True;
   Genealogic_Tree : T_Genealogic_Tree;
+  Test : T_Genealogic_Tree;
   Person : T_Person;
+  Person2 : T_Person;
   ID : Natural;
 begin
   ID := 0;
@@ -26,10 +28,27 @@ begin
 
   pragma Assert(GetSize(Genealogic_Tree) = 3);
 
+  pragma Assert(FindInTree(Genealogic_Tree, 1) = True);
+  pragma Assert(FindInTree(Genealogic_Tree, 2) = True);
+
   -- 3. Obtain the ancestors number of the root (Root included) 
   -- 4. Obtain the ancestors at a certain level from the root
   -- 5. Print the tree from a certain node 
-  -- 6. Delete one node and all of its ancestors 
+
+  -- 6. Delete one node and all of its ancestors
+  Test := GetLeft(Genealogic_Tree);
+  AddParentById(Test, ID, True);
+  ID := ID + 1;
+  AddParentById(Test, ID, False);
+  ID := ID + 1;
+  Person2 := GetData(Test);
+  pragma Assert(GetSize(Genealogic_Tree) = 5);
+  DeletePerson(Genealogic_Tree, Person2);
+  pragma Assert(GetSize(Genealogic_Tree) = 2);
+
+  pragma Assert(IsBranchEmpty(Genealogic_Tree, True) = True);
+  pragma Assert(IsBranchEmpty(Genealogic_Tree, False) = False);
+
   -- 7. Obtain all of the ancestors with : Only one parent known 
   -- 8. Obtain all of the ancestors with : The two parents known
   -- 9. Obtain all of the ancestors with : The two parents unknown
