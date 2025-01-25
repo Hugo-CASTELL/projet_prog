@@ -67,10 +67,7 @@ package body Binary_Tree is
     else
       branch := Tree.Right;
     end if;
-    Put_Line("Branch empty" & IsEmpty(branch)'Image);
-    if (IsEmpty(branch) = False) then
-      Put_Line("Branch Data" & GetData(branch)'Image);
-    end if;
+    Put("IsBranchEmpty");
     return IsEmpty(branch);
   end IsBranchEmpty;
 
@@ -82,7 +79,10 @@ package body Binary_Tree is
 
 	-- Determine if the tree has a data
 	function IsEmpty (Tree: T_Tree) return Boolean is
+    data : T_Data;
   begin
+    Put_Line("IsEmpty");
+    Put_Line(Tree'Image);
     return Tree = null or else Is_Null(Tree.Data);
   end IsEmpty;
 
@@ -94,6 +94,7 @@ package body Binary_Tree is
     if IsEmpty(Tree) then
       return 0;
     end if;
+    Put("IsEmptyTree");
 
     -- Get the size of the left branch if exists
     if (IsBranchEmpty(Tree, True) = False) then

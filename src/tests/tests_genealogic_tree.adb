@@ -3,8 +3,6 @@ with Ada.Integer_Text_IO;         use Ada.Integer_Text_IO;
 with Genealogic_Tree;             use Genealogic_Tree;
 
 procedure Tests_Genealogic_Tree is
-
-  silent : Boolean := True;
   Genealogic_Tree : T_Genealogic_Tree;
   Test : T_Genealogic_Tree;
   Person : T_Person;
@@ -45,11 +43,11 @@ begin
   pragma Assert(GetSize(Genealogic_Tree) = 5);
   DeletePerson(Genealogic_Tree, Person2);
 
-  Put_Line("Is Empty Root Left: " & IsEmpty(GetLeft(Genealogic_Tree))'Image); -- False, it should be empty ????
-  Put_Line("Data Root Left: " & GetData(GetLeft(Genealogic_Tree))'Image); -- Address but should have been freed wtf ????
+--  Put_Line("Is Empty Root Left: " & IsEmpty(GetLeft(Genealogic_Tree))'Image); -- False, it should be empty ????
+--  Put_Line("Data Root Left: " & GetData(GetLeft(Genealogic_Tree))'Image); -- Address but should have been freed wtf ????
 
-  Put_Line("Is Empty Root Right: " & IsEmpty(GetRight(Genealogic_Tree))'Image);
-  Put_Line("Data Root Right: " & GetData(GetRight(Genealogic_Tree))'Image);
+--  Put_Line("Is Empty Root Right: " & IsEmpty(GetRight(Genealogic_Tree))'Image);
+--  Put_Line("Data Root Right: " & GetData(GetRight(Genealogic_Tree))'Image);
   Put_Line(GetSize(Genealogic_Tree)'Image);
   -- pragma Assert(GetSize(Genealogic_Tree) = 2);
   Put_Line("Passage GetSize");
@@ -60,8 +58,5 @@ begin
   -- 7. Obtain all of the ancestors with : Only one parent known 
   -- 8. Obtain all of the ancestors with : The two parents known
   -- 9. Obtain all of the ancestors with : The two parents unknown
-  if (silent = False) then
-    Put_Line("TODO");
-  end if;
 
 end Tests_Genealogic_Tree;

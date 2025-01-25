@@ -58,6 +58,8 @@ package body Genealogic_Tree is
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in out T_Person) is
     searched_node : T_Genealogic_Tree;
     current_node : T_Genealogic_Tree;
+    node_left : T_Genealogic_Tree;
+    node_right : T_Genealogic_Tree;
     current_gen : T_List_Genealogic_Tree;
     next_gen : T_List_Genealogic_Tree;
   begin
@@ -68,8 +70,14 @@ package body Genealogic_Tree is
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
+          Put_Line("Searching parent node");
           current_node := Get(current_gen, i);
-          if GetID(GetData(current_node)) = GetID(Person) then
+          node_left  := GetLeft(current_node);
+          node_right := GetRight(current_node);
+          if ((GetID(GetData(current_node)) = GetID(Person)) or
+              (IsEmpty(node_left) = False and GetID(GetData(node_left)) = GetID(Person)) or
+              (IsEmpty(node_right) = False and GetID(GetData(node_right)) = GetID(Person)))
+          then
             searched_node := current_node;
           else
             if (IsBranchEmpty (current_node, False) = False) then
@@ -89,7 +97,19 @@ package body Genealogic_Tree is
 
     -- if the person was found
     if (IsEmpty(searched_node) = False) then
-      Delete(searched_node);
+      node_left  := GetLeft(searched_node);
+      node_right := GetRight(searched_node);
+
+      if (GetID(GetData(searched_node)) = GetID(Person)) then
+        Put_Line("Deleting parent node");
+        Delete(searched_node);
+      elsif (IsEmpty(node_left) = False and GetID(GetData(node_left)) = GetID(Person)) then
+        Put_Line("Deleting left node");
+        ClearLeft(searched_node);
+      elsif (IsEmpty(node_right) = False and GetID(GetData(node_right)) = GetID(Person)) then
+        Put_Line("Deleting right node");
+        ClearRight(searched_node);
+      end if;
     Put_Line("Deleting person node with data: " & searched_node'Image);
 
       -- Clear any remaining references in lists
