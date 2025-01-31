@@ -30,6 +30,8 @@ begin
   pragma Assert(FindInTree(Genealogic_Tree, 2) = True);
 
   -- 3. Obtain the ancestors number of the root (Root included) 
+  pragma Assert(NumberAncestors(Genealogic_Tree, GetData(Genealogic_Tree)) = 3);
+
   -- 4. Obtain the ancestors at a certain level from the root
   -- 5. Print the tree from a certain node 
 
