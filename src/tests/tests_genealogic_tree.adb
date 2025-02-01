@@ -7,6 +7,7 @@ procedure Tests_Genealogic_Tree is
   Test : T_Genealogic_Tree;
   Person : T_Person;
   Person2 : T_Person;
+  List_Persons : T_List_Person;
   ID : Natural;
 begin
   ID := 0;
@@ -58,7 +59,28 @@ begin
   pragma Assert(IsBranchEmpty(Genealogic_Tree, False) = False);
 
   -- 7. Obtain all of the ancestors with : Only one parent known 
+  AddParentById(Genealogic_Tree, ID, False);
+  ID := ID + 1;
+  Test := GetLeft(Genealogic_Tree);
+  AddParentById(Test, ID, True);
+  ID := ID + 1;
+  AddParentById(Test, ID, False);
+  ID := ID + 1;
+  Test := GetRight(Genealogic_Tree);
+  AddParentById(Test, ID, True);
+  ID := ID + 1;
+
+  Clear(List_Persons);
+  List_Persons := PersonsWithXParents(Genealogic_Tree, 1);
+  pragma Assert(GetSize(List_Persons) = 1);
+
   -- 8. Obtain all of the ancestors with : The two parents known
+  Clear(List_Persons);
+  List_Persons := PersonsWithXParents(Genealogic_Tree, 2);
+  pragma Assert(GetSize(List_Persons) = 2);
   -- 9. Obtain all of the ancestors with : The two parents unknown
+  Clear(List_Persons);
+  List_Persons := PersonsWithXParents(Genealogic_Tree, 0);
+  pragma Assert(GetSize(List_Persons) = 3);
 
 end Tests_Genealogic_Tree;

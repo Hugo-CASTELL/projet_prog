@@ -54,10 +54,10 @@ package body Genealogic_Tree is
           if GetID(GetData(current_node)) = ID then
             searched_node := current_node;
           else
-            if (IsBranchEmpty (current_node, False) = False) then
+            if (IsBranchEmpty (current_node, True) = False) then
               Add(next_gen, GetLeft(current_node));
             end if;
-            if (IsBranchEmpty (current_node, True) = False) then
+            if (IsBranchEmpty (current_node, False) = False) then
               Add(next_gen, GetRight(current_node));
             end if;
           end if;
@@ -118,10 +118,10 @@ package body Genealogic_Tree is
           then
             searched_node := current_node;
           else
-            if (IsBranchEmpty (current_node, False) = False) then
+            if (IsBranchEmpty (current_node, True) = False) then
               Add(next_gen, GetLeft(current_node));
             end if;
-            if (IsBranchEmpty (current_node, True) = False) then
+            if (IsBranchEmpty (current_node, False) = False) then
               Add(next_gen, GetRight(current_node));
             end if;
           end if;
@@ -184,9 +184,51 @@ package body Genealogic_Tree is
 
 	-- Returns the persons who don't have parents
 	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Natural) return T_List_Person is
-    todo: T_List_Person;
+    searched_node : T_Genealogic_Tree;
+    current_node : T_Genealogic_Tree;
+    current_gen : T_List_Genealogic_Tree;
+    next_gen : T_List_Genealogic_Tree;
+    corresponding_persons: T_List_Person;
+    number_of_parents: Natural;
   begin
-    return todo;
+    -- Init
+    current_gen.Add(Tree);
+
+    -- Search the person to delete
+    while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
+      Put_Line("Tour");
+      for i in 1..GetSize(current_gen) loop
+        if IsEmpty(searched_node) then
+          number_of_parents := 0;
+          current_node := Get(current_gen, i);
+
+          Put_Line("Testing right");
+          if (IsBranchEmpty (current_node, True) = False) then
+            number_of_parents := number_of_parents + 1;
+            Add(next_gen, GetLeft(current_node));
+          end if;
+          Put_Line("Testing left");
+          if (IsBranchEmpty (current_node, False) = False) then
+            number_of_parents := number_of_parents + 1;
+            Add(next_gen, GetRight(current_node));
+          end if;
+
+          Put_Line("Checking parent number");
+          if number_of_parents = NumberParent then
+            Put_Line("OK");
+            Add(corresponding_persons, GetData(current_node));
+          end if;
+
+        end if;
+      end loop;
+
+      Clear(current_gen);
+      Concat (current_gen, next_gen);
+      Clear(next_gen);
+    end loop;
+
+    return corresponding_persons;
+
   end PersonsWithXParents;
 
 

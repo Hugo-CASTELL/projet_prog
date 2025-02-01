@@ -62,13 +62,12 @@ package body Binary_Tree is
 	function IsBranchEmpty (Tree: in T_Tree; left: in Boolean) return Boolean is
     branch : T_Tree;
   begin
-    if left then
-      branch := Tree.Left;
-    else
-      branch := Tree.Right;
-    end if;
     Put("IsBranchEmpty");
-    return IsEmpty(branch);
+    if left then
+      return IsEmpty(Tree.Left);
+    else
+      return IsEmpty(Tree.Right);
+    end if;
   end IsBranchEmpty;
 
 	-- Determine if the tree is a leaf
