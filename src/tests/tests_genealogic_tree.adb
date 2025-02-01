@@ -48,6 +48,8 @@ begin
   pragma Assert(GetSize(List_Persons) = 0);
 
   -- 5. Print the tree from a certain node 
+  Put_Line("Print Tree from Root ----------------------------------------------------------------------------------------------");
+  PrintTree(Genealogic_Tree);
 
   -- 6. Delete one node and all of its ancestors
   Test := GetLeft(Genealogic_Tree);

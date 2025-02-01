@@ -46,7 +46,6 @@ package body Genealogic_Tree is
     -- Init
     current_gen.Add(Tree);
 
-    -- Search the person to delete
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
@@ -210,10 +209,45 @@ package body Genealogic_Tree is
 
   end AncestorsGen;
 
+	procedure PrintPerson(Person: in T_Person) is
+  begin
+    if Is_Null(Person) then
+      return;
+    end if;
+
+    Put("{ ");
+    Put("ID: " & GetID(Person)'Image);
+    -- Put("; ");
+    Put(" }");
+  end PrintPerson;
+
+	procedure Print(Tree: in T_Genealogic_Tree; Generation : in Natural) is
+  begin
+    if IsEmpty(Tree) then
+      return;
+    end if;
+
+    for i in 1..Generation loop
+      Put("    ");
+    end loop;
+    Put("-- ");
+    PrintPerson(GetData(Tree));
+    Put_Line(" ");
+
+    -- Recursive print
+    if (IsBranchEmpty (Tree, False) = False) then
+      Print(GetRight(Tree), Generation + 1);
+    end if;
+    if (IsBranchEmpty (Tree, True) = False) then
+      Print(GetLeft(Tree), Generation + 1);
+    end if;
+
+  end Print;
+
 	-- Print the tree
 	procedure PrintTree(Tree: in T_Genealogic_Tree) is
   begin
-    Null;
+    Print(Tree, 0);
   end PrintTree;
 
 	-- Returns the persons who don't have parents
