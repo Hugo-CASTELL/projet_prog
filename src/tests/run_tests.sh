@@ -32,7 +32,7 @@ if [ $? -eq 0 ]; then
     echo "Tests genealogic trees OK"
 fi
 
-# Remove all files in the current directory, but exclude tests_binary_tree.adb
+# Remove all files in the current directory, but exclude tests files and the script itself
 echo "\nClear directory"
 for file in $(ls ./ 2>/dev/null | grep -v -e "tests_binary_tree.adb" -e "tests_genealogic_tree.adb" -e "tests_person.adb" -e "tests_list.adb" -e "run_tests.sh"); do
     rm "$file"
