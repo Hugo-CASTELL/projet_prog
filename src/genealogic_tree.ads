@@ -87,8 +87,7 @@ package Genealogic_Tree is
 		Post => (NumberAncestors'Result >= 1); -- Le nombre d'ancêtres doit être de 1 minimum car la personne renseignée est compris dans les ancêtres
 
 	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Natural) return T_List_Person with
-		Pre => (FindInTree(Tree, GetID(Person)) = True);
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Generation: in Natural) return T_List_Person;
 
 	-- Print the tree
 	procedure PrintTree(Tree: in T_Genealogic_Tree);

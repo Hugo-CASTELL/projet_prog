@@ -169,11 +169,45 @@ package body Genealogic_Tree is
     end if;
   end NumberAncestors;
 
-	-- Returns all the ID of the ancestors of the person
-	function AncestorsGen(Tree: in T_Genealogic_Tree; Person: in T_Person; Generation: in Natural) return T_List_Person is
-    todo: T_List_Person;
+	-- Returns all the ancestors of the person at certain generation
+	function AncestorsGen(Tree: in T_Genealogic_Tree; Generation: in Natural) return T_List_Person is
+    current_node : T_Genealogic_Tree;
+    current_gen : T_List_Genealogic_Tree;
+    next_gen : T_List_Genealogic_Tree;
+    corresponding_persons: T_List_Person;
+    current_gen_number: Natural;
   begin
-    return todo;
+    -- Init
+    current_gen.Add(Tree);
+    current_gen_number := 0;
+
+    -- Search the person to delete
+    while ((IsEmpty(current_gen) = False) and (current_gen_number /= Generation)) loop
+      Put_Line("Tour");
+      for i in 1..GetSize(current_gen) loop
+        current_node := Get(current_gen, i);
+        Put_Line("Testing left");
+        if (IsBranchEmpty (current_node, True) = False) then
+          Add(next_gen, GetLeft(current_node));
+        end if;
+        Put_Line("Testing right");
+        if (IsBranchEmpty (current_node, False) = False) then
+          Add(next_gen, GetRight(current_node));
+        end if;
+      end loop;
+
+      Clear(current_gen);
+      Concat (current_gen, next_gen);
+      Clear(next_gen);
+      current_gen_number := current_gen_number + 1;
+    end loop;
+
+    for i in 1..GetSize(current_gen) loop
+      Add(corresponding_persons, GetData(Get(current_gen, i)));
+    end loop;
+
+    return corresponding_persons;
+
   end AncestorsGen;
 
 	-- Print the tree

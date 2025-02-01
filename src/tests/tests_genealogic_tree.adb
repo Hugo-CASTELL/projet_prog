@@ -34,6 +34,19 @@ begin
   pragma Assert(NumberAncestors(Genealogic_Tree, GetData(Genealogic_Tree)) = 3);
 
   -- 4. Obtain the ancestors at a certain level from the root
+  Clear(List_Persons);
+  List_Persons := AncestorsGen(Genealogic_Tree, 0);
+  Put_Line(GetSize(List_Persons)'Image);
+  pragma Assert(GetSize(List_Persons) = 1);
+  Clear(List_Persons);
+  List_Persons := AncestorsGen(Genealogic_Tree, 1);
+  Put_Line(GetSize(List_Persons)'Image);
+  pragma Assert(GetSize(List_Persons) = 2);
+  Clear(List_Persons);
+  List_Persons := AncestorsGen(Genealogic_Tree, 2);
+  Put_Line(GetSize(List_Persons)'Image);
+  pragma Assert(GetSize(List_Persons) = 0);
+
   -- 5. Print the tree from a certain node 
 
   -- 6. Delete one node and all of its ancestors
@@ -78,6 +91,7 @@ begin
   Clear(List_Persons);
   List_Persons := PersonsWithXParents(Genealogic_Tree, 2);
   pragma Assert(GetSize(List_Persons) = 2);
+
   -- 9. Obtain all of the ancestors with : The two parents unknown
   Clear(List_Persons);
   List_Persons := PersonsWithXParents(Genealogic_Tree, 0);
