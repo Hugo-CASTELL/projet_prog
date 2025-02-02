@@ -62,20 +62,6 @@ package Binary_Tree is
 	function GetSize (Tree: in T_Tree) return Natural with
 		Post => (GetSize'Result = 1) = ((IsBranchEmpty(Tree, True) and IsBranchEmpty(Tree, False)));
 
-	-- Print the binary tree in the console
-	procedure Print (Tree: in T_Tree);
-
-	-- Afficher un Tree Tree (en faisant apparaître la strucre grâce à une
-	-- indendation et un signe '<', '>', '/' pour indiquer la sous-arbre
-	-- gauche, '>' pour un sous arbre droit et '/' pour la racine)
-	-- Exemple:
-	--
-	--  / Cle1: Valeur1
-	--      < Cle2: Valeur2
-	--          > Cle3: Valeur3
-	--      > Cle4: Valeur 4
-	--          < Cle5: Valeur 5
-
   procedure Delete(Tree: in out T_Tree) with
 		Post => IsEmpty(Tree);
 

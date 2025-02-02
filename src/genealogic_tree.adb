@@ -107,7 +107,6 @@ package body Genealogic_Tree is
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
-          Put_Line("Searching parent node");
           current_node := Get(current_gen, i);
           node_left  := GetLeft(current_node);
           node_right := GetRight(current_node);
@@ -138,16 +137,12 @@ package body Genealogic_Tree is
       node_right := GetRight(searched_node);
 
       if (GetID(GetData(searched_node)) = GetID(Person)) then
-        Put_Line("Deleting parent node");
         Delete(searched_node);
       elsif (IsEmpty(node_left) = False and GetID(GetData(node_left)) = GetID(Person)) then
-        Put_Line("Deleting left node");
         ClearLeft(searched_node);
       elsif (IsEmpty(node_right) = False and GetID(GetData(node_right)) = GetID(Person)) then
-        Put_Line("Deleting right node");
         ClearRight(searched_node);
       end if;
-    Put_Line("Deleting person node with data: " & searched_node'Image);
 
       -- Clear any remaining references in lists
       Clear(current_gen);
@@ -182,14 +177,11 @@ package body Genealogic_Tree is
 
     -- Search the person to delete
     while ((IsEmpty(current_gen) = False) and (current_gen_number /= Generation)) loop
-      Put_Line("Tour");
       for i in 1..GetSize(current_gen) loop
         current_node := Get(current_gen, i);
-        Put_Line("Testing left");
         if (IsBranchEmpty (current_node, True) = False) then
           Add(next_gen, GetLeft(current_node));
         end if;
-        Put_Line("Testing right");
         if (IsBranchEmpty (current_node, False) = False) then
           Add(next_gen, GetRight(current_node));
         end if;
@@ -264,26 +256,21 @@ package body Genealogic_Tree is
 
     -- Search the person to delete
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
-      Put_Line("Tour");
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
           number_of_parents := 0;
           current_node := Get(current_gen, i);
 
-          Put_Line("Testing right");
           if (IsBranchEmpty (current_node, True) = False) then
             number_of_parents := number_of_parents + 1;
             Add(next_gen, GetLeft(current_node));
           end if;
-          Put_Line("Testing left");
           if (IsBranchEmpty (current_node, False) = False) then
             number_of_parents := number_of_parents + 1;
             Add(next_gen, GetRight(current_node));
           end if;
 
-          Put_Line("Checking parent number");
           if number_of_parents = NumberParent then
-            Put_Line("OK");
             Add(corresponding_persons, GetData(current_node));
           end if;
 

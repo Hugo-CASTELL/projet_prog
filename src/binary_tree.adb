@@ -62,7 +62,6 @@ package body Binary_Tree is
 	function IsBranchEmpty (Tree: in T_Tree; left: in Boolean) return Boolean is
     branch : T_Tree;
   begin
-    Put("IsBranchEmpty");
     if left then
       return IsEmpty(Tree.Left);
     else
@@ -80,8 +79,6 @@ package body Binary_Tree is
 	function IsEmpty (Tree: T_Tree) return Boolean is
     data : T_Data;
   begin
-    Put_Line("IsEmpty");
-    Put_Line(Tree'Image);
     return Tree = null or else Is_Null(Tree.Data);
   end IsEmpty;
 
@@ -93,18 +90,14 @@ package body Binary_Tree is
     if IsEmpty(Tree) then
       return 0;
     end if;
-    Put("IsEmptyTree");
 
     -- Get the size of the left branch if exists
     if (IsBranchEmpty(Tree, True) = False) then
-    Put("LEFT");
       Left_Size := GetSize(GetLeft(Tree));
-    Put("LEFT");
     end if;
 
     -- Get the size of the right branch if exists
     if (IsBranchEmpty(Tree, False) = False) then
-    Put("Right");
       Right_Size := GetSize(GetRight(Tree));
     end if;
 
@@ -112,12 +105,6 @@ package body Binary_Tree is
     return 1 + Left_Size + Right_Size;
 
   end GetSize;
-
-	-- Print the binary tree in the console
-	procedure Print (Tree: in T_Tree) is
-  begin
-    Put("TODO");
-  end Print;
 
 	procedure Free is
 		new Ada.Unchecked_Deallocation (Object => T_Node, Name => T_Tree);
@@ -143,7 +130,6 @@ package body Binary_Tree is
     if IsLeaf(Tree) then
       Free(Tree);
       Tree := null;
-      Put_Line("Deleting node with data: " & Tree'Image);
     end if;
   end Delete;
 

@@ -36,19 +36,15 @@ begin
   -- 4. Obtain the ancestors at a certain level from the root
   Clear(List_Persons);
   List_Persons := AncestorsGen(Genealogic_Tree, 0);
-  Put_Line(GetSize(List_Persons)'Image);
   pragma Assert(GetSize(List_Persons) = 1);
   Clear(List_Persons);
   List_Persons := AncestorsGen(Genealogic_Tree, 1);
-  Put_Line(GetSize(List_Persons)'Image);
   pragma Assert(GetSize(List_Persons) = 2);
   Clear(List_Persons);
   List_Persons := AncestorsGen(Genealogic_Tree, 2);
-  Put_Line(GetSize(List_Persons)'Image);
   pragma Assert(GetSize(List_Persons) = 0);
 
   -- 5. Print the tree from a certain node 
-  Put_Line("Print Tree from Root ----------------------------------------------------------------------------------------------");
   PrintTree(Genealogic_Tree);
 
   -- 6. Delete one node and all of its ancestors
@@ -60,15 +56,6 @@ begin
   Person2 := GetData(Test);
   pragma Assert(GetSize(Genealogic_Tree) = 5);
   DeletePerson(Genealogic_Tree, Person2);
-
---  Put_Line("Is Empty Root Left: " & IsEmpty(GetLeft(Genealogic_Tree))'Image); -- False, it should be empty ????
---  Put_Line("Data Root Left: " & GetData(GetLeft(Genealogic_Tree))'Image); -- Address but should have been freed wtf ????
-
---  Put_Line("Is Empty Root Right: " & IsEmpty(GetRight(Genealogic_Tree))'Image);
---  Put_Line("Data Root Right: " & GetData(GetRight(Genealogic_Tree))'Image);
-  Put_Line(GetSize(Genealogic_Tree)'Image);
-  -- pragma Assert(GetSize(Genealogic_Tree) = 2);
-  Put_Line("Passage GetSize");
 
   pragma Assert(IsBranchEmpty(Genealogic_Tree, True) = True);
   pragma Assert(IsBranchEmpty(Genealogic_Tree, False) = False);

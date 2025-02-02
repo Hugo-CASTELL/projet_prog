@@ -64,7 +64,6 @@ package Genealogic_Tree is
 	function IsLeaf (Tree: in T_Genealogic_Tree) return Boolean renames Genealogic_Tree_Of_Persons.IsLeaf;
 	function IsEmpty (Tree: in T_Genealogic_Tree) return Boolean renames Genealogic_Tree_Of_Persons.IsEmpty;
 	function GetSize (Tree: in T_Genealogic_Tree) return Natural renames Genealogic_Tree_Of_Persons.GetSize;
-	procedure Print (Tree: in T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.Print;
 	procedure Delete (Tree: in out T_Genealogic_Tree) renames Genealogic_Tree_Of_Persons.Delete;
 
   -- ### Functions ###
