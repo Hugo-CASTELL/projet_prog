@@ -7,12 +7,26 @@
 
 - [Livrables du projet](./livrables/)
 
-- [Manuel d'utilisation (TODO)]()
-- [Rapport (TODO)]()
+- [Manuel d'utilisation](./livrables/manuel.pdf)
+- [Rapport](./livrables/rapport.pdf)
 
-- [Code source compressé (TODO)]()
-- [Spécifications des modules (TODO)]()
-- [Tests (TODO)]()
+- [Code source compressé](./livrables/sources.tar)
+- [Spécifications des modules](./src/)
+- [Tests](./src/tests/)
+
+## Lancement du menu de commandes
+
+Une procédure automatique de lancement du menu de commmandes a été développé.
+
+Se placer dans le dossier de tests :
+```
+cd ./src/menu/
+```
+
+Lancer le script de tests :
+```
+chmod +x ./run_menu.sh && sh ./run_menu.sh
+```
 
 ## Lancement des tests
 
