@@ -35,6 +35,8 @@ package Genealogic_Tree is
 
   function Is_Null(Person : T_Person) return Boolean;
 
+	procedure PrintPerson(Person: in T_Person);
+
   -- #-------------------#
   -- # T_Genealogic_Tree #
   -- #-------------------#
@@ -98,4 +100,6 @@ package Genealogic_Tree is
 	-- Determinates if the person is in tree
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Natural) return Boolean;
   
+	function FindPersonInTree(Tree: in T_Genealogic_Tree; ID: Natural) return T_Genealogic_Tree;
+
 end Genealogic_Tree;

@@ -103,18 +103,23 @@ package body Genealogic_Tree is
     -- Init
     current_gen.Add(Tree);
 
-    -- Search the person to delete
+    -- Search the child person to delete the parent
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
           current_node := Get(current_gen, i);
           node_left  := GetLeft(current_node);
           node_right := GetRight(current_node);
-          if ((GetID(GetData(current_node)) = GetID(Person)) or
-              (IsEmpty(node_left) = False and GetID(GetData(node_left)) = GetID(Person)) or
-              (IsEmpty(node_right) = False and GetID(GetData(node_right)) = GetID(Person)))
-          then
+          if (GetID(GetData(current_node)) = GetID(Person)) then
             searched_node := current_node;
+          elsif (IsEmpty(node_left) = False) then
+            if GetID(GetData(node_left)) = GetID(Person) then
+              searched_node := current_node;
+            end if;
+          elsif (IsEmpty(node_right) = False) then
+            if GetID(GetData(node_right)) = GetID(Person) then
+              searched_node := current_node;
+            end if;
           else
             if (IsBranchEmpty (current_node, True) = False) then
               Add(next_gen, GetLeft(current_node));
@@ -173,7 +178,7 @@ package body Genealogic_Tree is
   begin
     -- Init
     current_gen.Add(Tree);
-    current_gen_number := 0;
+    current_gen_number := 1;
 
     -- Search the person to delete
     while ((IsEmpty(current_gen) = False) and (current_gen_number /= Generation)) loop

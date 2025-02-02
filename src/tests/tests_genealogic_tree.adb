@@ -35,13 +35,13 @@ begin
 
   -- 4. Obtain the ancestors at a certain level from the root
   Clear(List_Persons);
-  List_Persons := AncestorsGen(Genealogic_Tree, 0);
+  List_Persons := AncestorsGen(Genealogic_Tree, 1);
   pragma Assert(GetSize(List_Persons) = 1);
   Clear(List_Persons);
-  List_Persons := AncestorsGen(Genealogic_Tree, 1);
+  List_Persons := AncestorsGen(Genealogic_Tree, 2);
   pragma Assert(GetSize(List_Persons) = 2);
   Clear(List_Persons);
-  List_Persons := AncestorsGen(Genealogic_Tree, 2);
+  List_Persons := AncestorsGen(Genealogic_Tree, 3);
   pragma Assert(GetSize(List_Persons) = 0);
 
   -- 5. Print the tree from a certain node 
