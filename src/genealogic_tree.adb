@@ -32,6 +32,19 @@ package body Genealogic_Tree is
     return Person = null;
   end Is_Null;
 
+  -- Prints the person
+	procedure PrintPerson(Person: in T_Person) is
+  begin
+    if Is_Null(Person) then
+      return;
+    end if;
+
+    Put("{ ");
+    Put("ID: " & GetID(Person)'Image);
+    -- Put("; ");
+    Put(" }");
+  end PrintPerson;
+
   -- #-------------------#
   -- # T_Genealogic_Tree #
   -- #-------------------#
@@ -46,6 +59,7 @@ package body Genealogic_Tree is
     -- Init
     current_gen.Add(Tree);
 
+    -- Searching by generation
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
@@ -73,7 +87,7 @@ package body Genealogic_Tree is
     
   end FindPersonInTree;
 
-	-- Add parent
+	-- Add parent with an id
 	procedure AddParentById(Tree: in out T_Genealogic_Tree; ID_Person: in Natural; IsFemale: in Boolean) is
     Person : T_Person;
   begin
@@ -81,7 +95,7 @@ package body Genealogic_Tree is
     AddParentByPerson(Tree, Person, IsFemale);
   end AddParentById;
 
-	-- Add parent
+	-- Add parent with a struct
 	procedure AddParentByPerson(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean) is
   begin
     if IsFemale then
@@ -91,7 +105,7 @@ package body Genealogic_Tree is
     end if;
   end AddParentByPerson;
 
-	-- Delete persons of the tree 
+	-- Delete person and its ancestors from the tree  
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in out T_Person) is
     searched_node : T_Genealogic_Tree;
     current_node : T_Genealogic_Tree;
@@ -103,7 +117,7 @@ package body Genealogic_Tree is
     -- Init
     current_gen.Add(Tree);
 
-    -- Search the child person to delete the parent
+    -- Search the child person to delete the parent with a clear
     while (IsEmpty(searched_node) and (IsEmpty(current_gen) = False)) loop
       for i in 1..GetSize(current_gen) loop
         if IsEmpty(searched_node) then
@@ -180,7 +194,7 @@ package body Genealogic_Tree is
     current_gen.Add(Tree);
     current_gen_number := 1;
 
-    -- Search the person to delete
+    -- Stacking generation in a list until the desired generation (stop if the list is empty)
     while ((IsEmpty(current_gen) = False) and (current_gen_number /= Generation)) loop
       for i in 1..GetSize(current_gen) loop
         current_node := Get(current_gen, i);
@@ -205,18 +219,6 @@ package body Genealogic_Tree is
     return corresponding_persons;
 
   end AncestorsGen;
-
-	procedure PrintPerson(Person: in T_Person) is
-  begin
-    if Is_Null(Person) then
-      return;
-    end if;
-
-    Put("{ ");
-    Put("ID: " & GetID(Person)'Image);
-    -- Put("; ");
-    Put(" }");
-  end PrintPerson;
 
 	procedure Print(Tree: in T_Genealogic_Tree; Generation : in Natural) is
   begin
@@ -290,7 +292,6 @@ package body Genealogic_Tree is
     return corresponding_persons;
 
   end PersonsWithXParents;
-
 
 	-- Determinates if the person is in tree
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Natural) return Boolean is

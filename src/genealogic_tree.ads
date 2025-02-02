@@ -33,8 +33,10 @@ package Genealogic_Tree is
 	-- Returns the id of the person
 	function GetID (Person: in T_Person) return Natural;
 
+	-- Checks if the person is null
   function Is_Null(Person : T_Person) return Boolean;
 
+	-- Prints the person
 	procedure PrintPerson(Person: in T_Person);
 
   -- #-------------------#
@@ -70,19 +72,21 @@ package Genealogic_Tree is
 
   -- ### Functions ###
 
-	-- Add parent
+	-- Add parent with a struct
 	procedure AddParentByPerson(Tree: in out T_Genealogic_Tree; Person: in T_Person; IsFemale: in Boolean) with
 		 Post => ((IsFemale = False)  and (IsBranchEmpty(Tree, True)  = False)) or 
              (IsFemale           and (IsBranchEmpty(Tree, False) = False)); -- Si on ajoute une mere, on vérifie l'ID de la personne de droite et si on ajoute un pere, l'ID de gauche
+
+	-- Add parent with an id
 	procedure AddParentById(Tree: in out T_Genealogic_Tree; ID_Person: in Natural; IsFemale: in Boolean) with
 		 Post => ((IsFemale = False)  and (IsBranchEmpty(Tree, True)  = False)) or 
              (IsFemale            and (IsBranchEmpty(Tree, False) = False)); 
 
-	-- Delete persons of the tree
+	-- Delete person and its ancestors from the tree
 	procedure DeletePerson(Tree: in out T_Genealogic_Tree; Person: in out T_Person) with
 		Pre => (FindInTree(Tree, GetID(Person)) = True);
 	
-	-- Returns the number of ancestors of the person
+	-- Returns the number of ancestors of the person, him included
 	function NumberAncestors(Tree: in T_Genealogic_Tree; Person: in T_Person) return Natural with
 		Pre => (FindInTree(Tree, GetID(Person)) = True), -- La personne renseignée doit être dans l'arbre fourni
 		Post => (NumberAncestors'Result >= 1); -- Le nombre d'ancêtres doit être de 1 minimum car la personne renseignée est compris dans les ancêtres
@@ -97,9 +101,10 @@ package Genealogic_Tree is
 	function PersonsWithXParents(Tree: in T_Genealogic_Tree; NumberParent: in Natural) return T_List_Person with
 		Pre => ((NumberParent >= 0) and (NumberParent <= 2));
 
-	-- Determinates if the person is in tree
+	-- Determinates if the person is in tree (returns boolean)
 	function FindInTree(Tree: in T_Genealogic_Tree; ID: Natural) return Boolean;
   
+	-- Determinates if the person is in tree (returns node)
 	function FindPersonInTree(Tree: in T_Genealogic_Tree; ID: Natural) return T_Genealogic_Tree;
 
 end Genealogic_Tree;
